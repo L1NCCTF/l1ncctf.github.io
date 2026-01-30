@@ -5,3 +5,5 @@ tux:
   bio: "CTF enthusiast from Sweden"
 skip:
   name: Skipper
+setbuf:
+  name: setbuf

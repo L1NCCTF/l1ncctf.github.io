@@ -3,8 +3,6 @@ title: "HSCTF 9 - OTP"
 date: 2022-06-14
 author: tux
 draft: false
-description: >-
-    Crypto challenge
 categories:
   - Writeups
   - Crypto

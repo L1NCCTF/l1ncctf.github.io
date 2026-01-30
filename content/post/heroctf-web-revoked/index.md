@@ -1,5 +1,5 @@
 ---
-title: HeroCTF 2025 - Revoked & Revoked Revenge Writeups
+title: HeroCTF 2025 - Revoked & Revoked Revenge
 date: 2025-12-05
 draft: false
 author: tux

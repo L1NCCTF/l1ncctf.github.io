@@ -3,14 +3,12 @@ title: "HSCTF 9 - Quagmire-I"
 date: 2022-06-13
 draft: false
 author: tux
-description: >-
-    Crypto challenge
 categories:
   - Writeups
   - Crypto
 tags:
   - HSCTF
-  - Crypto
+  - Quagmire
 ---
 
 *Easy crypto that can be solved manually.*
