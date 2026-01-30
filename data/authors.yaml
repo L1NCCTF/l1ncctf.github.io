@@ -1,6 +1,6 @@
 tux:
   name: TuxPad
-  avatar: /img/avatar/tux.jpg
+  avatar: /img/commons/tux.jpg
   url: https://tuxpad.github.io
 skip:
   name: Skipper
