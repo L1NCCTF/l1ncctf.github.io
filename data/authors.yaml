@@ -2,5 +2,6 @@ tux:
   name: TuxPad
   avatar: /img/commons/tux.jpg
   url: https://tuxpad.github.io
+  bio: "CTF enthusiast from Sweden"
 skip:
   name: Skipper

@@ -4,6 +4,12 @@ toc = true
 avatar = "img/commons/l1nc.png"
 author = ""
 
+[params.post]
+showAuthor = true
+showDate = true
+showCategories = true
+showTags = true
+
 [assets]
   # Self-hosted static assets, default to false. If true, the assets will be hosted on your own server.
   self_host = false
