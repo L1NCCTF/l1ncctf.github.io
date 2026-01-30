@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>L1NC CTF</title><link>https://l1ncctf.github.io/</link><description>Recent content on L1NC CTF</description><generator>Hugo</generator><language>en</language><lastBuildDate>Wed, 28 Jan 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://l1ncctf.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>About</title><link>https://l1ncctf.github.io/about/</link><pubDate>Wed, 28 Jan 2026 00:00:00 +0000</pubDate><guid>https://l1ncctf.github.io/about/</guid><description>&lt;p&gt;L1NC CTF Team members page&lt;/p&gt;
+&lt;p&gt;Captain: Tuxpad&lt;/p&gt;
+&lt;p&gt;Members:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;i3tani&lt;/li&gt;
+&lt;li&gt;Skipper&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;</description></item><item><title>HeroCTF 2025 - Revoked &amp; Revoked Revenge</title><link>https://l1ncctf.github.io/post/heroctf-web-revoked/</link><pubDate>Fri, 05 Dec 2025 00:00:00 +0000</pubDate><guid>https://l1ncctf.github.io/post/heroctf-web-revoked/</guid><description>&lt;h2 id="challenge-descriptions" id=challenge-descriptions&gt;
+ 
+ &lt;span class="me-2"&gt;Challenge Descriptions&lt;/span&gt;
+ &lt;a href="#challenge-descriptions" class="anchor text-muted"&gt;&lt;i class="fas fa-hashtag"&gt;&lt;/i&gt;&lt;/a&gt;
+ 
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Revoked:&lt;/strong&gt;
+&lt;code&gt;Your budget request for the new company personnel index has been declined. Instead, the intern has received a very small bonus in exchange for a homemade solution. Show them their stinginess could cost them.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Revoked Revenge:&lt;/strong&gt;
+&lt;code&gt;The chall maker forgot to remove a debug account... Here is the revenge challenge without this backdoor!&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Although &lt;a href="https://github.com/HeroCTF/HeroCTF_v7/blob/master/Web/revoked/challenge/app/main.py"&gt;source code&lt;/a&gt; for a Flask app was provided, I prefer starting with black‑box testing to understand how the application behaves externally before reviewing internals.
+After solving the challenge through SQL injection, I went back to the source to analyze exactly why the exploit worked.&lt;/p&gt;</description></item><item><title>O24 CTF 2024 - Ghost In The Wall</title><link>https://l1ncctf.github.io/post/o24-forensic-ghost_in_the_wall/</link><pubDate>Sat, 21 Dec 2024 00:00:00 +0000</pubDate><guid>https://l1ncctf.github.io/post/o24-forensic-ghost_in_the_wall/</guid><description>&lt;h2 id="challenge-description" id=challenge-description&gt;
+ 
+ &lt;span class="me-2"&gt;Challenge Description&lt;/span&gt;
+ &lt;a href="#challenge-description" class="anchor text-muted"&gt;&lt;i class="fas fa-hashtag"&gt;&lt;/i&gt;&lt;/a&gt;
+ 
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;What is this?! How did someone manage to capture my network traffic? Must've been that damnable ghost in my walls...&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Find all 3 flags and combine them as such &lt;code&gt;flag1---flag2---flag3&lt;/code&gt; in order to scare away the ghost in your walls for good!
+&lt;strong&gt;Note:&lt;/strong&gt; You are sharing this challenge with the other competitors. Be sneaky, lest you want other teams to know your solution!&lt;/p&gt;
+&lt;h2 id="solution" id=solution&gt;
+ 
+ &lt;span class="me-2"&gt;Solution&lt;/span&gt;
+ &lt;a href="#solution" class="anchor text-muted"&gt;&lt;i class="fas fa-hashtag"&gt;&lt;/i&gt;&lt;/a&gt;
+ 
+&lt;/h2&gt;&lt;p&gt;Along with the challenge description you get a pcap with ~10k frames, containing a bunch of encrypted QUIC traffic, as well as TLS encrypted TCP, and some unencrypted HTTP over TCP to sites dedicated to cars.&lt;/p&gt;</description></item><item><title>HSCTF 9 - Baby-baby-rsa</title><link>https://l1ncctf.github.io/post/hsctf9-crypto-baby_baby_rsa/</link><pubDate>Tue, 14 Jun 2022 00:00:00 +0000</pubDate><guid>https://l1ncctf.github.io/post/hsctf9-crypto-baby_baby_rsa/</guid><description>&lt;p&gt;&lt;em&gt;Shuffled chunks of bits&lt;/em&gt;&lt;/p&gt;</description></item><item><title>HSCTF 9 - OTP</title><link>https://l1ncctf.github.io/post/hsctf9-crypto-otp/</link><pubDate>Tue, 14 Jun 2022 00:00:00 +0000</pubDate><guid>https://l1ncctf.github.io/post/hsctf9-crypto-otp/</guid><description>&lt;p&gt;&lt;em&gt;Poorly generated random number that allows for a small range to check&lt;/em&gt;&lt;/p&gt;</description></item><item><title>HSCTF 9 - Quagmire-I</title><link>https://l1ncctf.github.io/post/hsctf9-crypto-quagmire_i/</link><pubDate>Mon, 13 Jun 2022 00:00:00 +0000</pubDate><guid>https://l1ncctf.github.io/post/hsctf9-crypto-quagmire_i/</guid><description>&lt;p&gt;&lt;em&gt;Easy crypto that can be solved manually.&lt;/em&gt;&lt;/p&gt;</description></item><item><title>HSCTF 9 - Gallery</title><link>https://l1ncctf.github.io/post/hsctf9-web-gallery/</link><pubDate>Tue, 10 May 2022 00:00:00 +0000</pubDate><guid>https://l1ncctf.github.io/post/hsctf9-web-gallery/</guid><description>&lt;p&gt;&lt;em&gt;A simple web challenge involving directory traversal.&lt;/em&gt;&lt;/p&gt;</description></item><item><title>Archives</title><link>https://l1ncctf.github.io/archives/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://l1ncctf.github.io/archives/</guid><description/></item></channel></rss>

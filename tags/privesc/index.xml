@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Privesc on L1NC CTF</title><link>https://l1ncctf.github.io/tags/privesc/</link><description>Recent content in Privesc on L1NC CTF</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 21 Dec 2024 00:00:00 +0000</lastBuildDate><atom:link href="https://l1ncctf.github.io/tags/privesc/index.xml" rel="self" type="application/rss+xml"/><item><title>O24 CTF 2024 - Ghost In The Wall</title><link>https://l1ncctf.github.io/post/o24-forensic-ghost_in_the_wall/</link><pubDate>Sat, 21 Dec 2024 00:00:00 +0000</pubDate><guid>https://l1ncctf.github.io/post/o24-forensic-ghost_in_the_wall/</guid><description>&lt;h2 id="challenge-description" id=challenge-description&gt;
+ 
+ &lt;span class="me-2"&gt;Challenge Description&lt;/span&gt;
+ &lt;a href="#challenge-description" class="anchor text-muted"&gt;&lt;i class="fas fa-hashtag"&gt;&lt;/i&gt;&lt;/a&gt;
+ 
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;What is this?! How did someone manage to capture my network traffic? Must've been that damnable ghost in my walls...&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Find all 3 flags and combine them as such &lt;code&gt;flag1---flag2---flag3&lt;/code&gt; in order to scare away the ghost in your walls for good!
+&lt;strong&gt;Note:&lt;/strong&gt; You are sharing this challenge with the other competitors. Be sneaky, lest you want other teams to know your solution!&lt;/p&gt;
+&lt;h2 id="solution" id=solution&gt;
+ 
+ &lt;span class="me-2"&gt;Solution&lt;/span&gt;
+ &lt;a href="#solution" class="anchor text-muted"&gt;&lt;i class="fas fa-hashtag"&gt;&lt;/i&gt;&lt;/a&gt;
+ 
+&lt;/h2&gt;&lt;p&gt;Along with the challenge description you get a pcap with ~10k frames, containing a bunch of encrypted QUIC traffic, as well as TLS encrypted TCP, and some unencrypted HTTP over TCP to sites dedicated to cars.&lt;/p&gt;</description></item></channel></rss>
