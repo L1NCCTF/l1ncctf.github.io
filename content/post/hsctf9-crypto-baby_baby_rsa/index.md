@@ -3,8 +3,6 @@ title: "HSCTF 9 - Baby-baby-rsa"
 date: 2022-06-14
 draft: false
 author: tux
-description: >-
-    Crypto challenge
 categories:
   - Writeups
   - Crypto

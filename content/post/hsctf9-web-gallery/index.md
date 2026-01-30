@@ -2,9 +2,7 @@
 title: "HSCTF 9 - Gallery"
 date: 2022-05-10
 draft: false
-author: setbuf
-description: >-
-    Web challenge
+author: "setbuf"
 categories:
   - Writeups
   - Web
