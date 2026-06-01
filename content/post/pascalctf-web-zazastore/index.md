@@ -29,26 +29,32 @@ source code was provided, but I prefer to have a look at the application in a bl
 to see what it's meant to do, before I review the code to see how it is accomplished.
 
 ## Black Box Enumeration
-[!login](zazastore_01.png)
+![login](zazastore_01.png)
+
 Upon entering the challenge you land on a login page. I tried a basic `admin' OR 1=1--` SQLi, and
 was taken to the main page, but with no admin panel in sight. Suspecting this might just be broken
 authentication rather than a successful injection, I logged out and tried random credentials -
 which also worked, confirming the login accepts anything.
 
-[!main_page](zazastore_02.png)
+![main_page](zazastore_02.png)
+
 The main page of the application is a store front with some products. I have 100 credits available
 in my balance, and can afford all but one products, "RealZa"; buying this product is likely the
 goal of the challenge.
 
-[!buying](zazastore_03.png)
+![buying](zazastore_03.png)
+
 Adding a couple of the products to the basket and checking out reduced the credits by the correct
 amount and placed the purchased products in my inventory.
-[!inventory](zazastore_04.png)
+![inventory](zazastore_04.png)
 
 Using Burpsuite I captured a request to add a product to the cart to see the format, a json object
 containing the name of the product and the quantity.
-[!burp_request](zazastore_05.png)
-[!failed_request](zazastore_06.png)
+
+![burp_request](zazastore_05.png)
+
+![failed_request](zazastore_06.png)
+
 I then attempted to modify the request to see if it is possible to add a negative quantity in
 order to "sell" items to the store, thereby increasing the balance and being able to afford
 buying the suspected flag, which did not work.
@@ -168,13 +174,18 @@ what happens if the product doesn't exist?
 With the vulnerability chain mapped, exploiting it is straightforward; all that needs to be
 done is intercepting a request to add an item to the cart and modify the name of the product to
 anything that isn't in the store,
-[fake_request](zazastore_07.png)
+
+![fake_request](zazastore_07.png)
+
 make sure that the cart contains both the fake item and the flag ("RealZa"), and then proceed to
 check out.
-[flag_bought](zazastore_08.png)
+
+![flag_bought](zazastore_08.png)
 
 After checking out the items, the flag is available in the inventory.
-[flag](zazastore_09.png)
+
+![flag](zazastore_09.png)
+
 
 In fact, you don't even need to use a proxy for the exploit; replaying the request can be done
 in the browsers developer tools (Ctrl+Shift+I).
