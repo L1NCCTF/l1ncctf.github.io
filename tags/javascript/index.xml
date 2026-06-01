@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>JavaScript on L1NC CTF</title><link>https://l1ncctf.github.io/tags/javascript/</link><description>Recent content in JavaScript on L1NC CTF</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 01 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://l1ncctf.github.io/tags/javascript/index.xml" rel="self" type="application/rss+xml"/><item><title>PascalCTF 2026 - Zazastore</title><link>https://l1ncctf.github.io/post/pascalctf-web-zazastore/</link><pubDate>Mon, 01 Jun 2026 00:00:00 +0000</pubDate><guid>https://l1ncctf.github.io/post/pascalctf-web-zazastore/</guid><description>&lt;h2 id="challenge-description" id=challenge-description&gt;
+ 
+ &lt;span class="me-2"&gt;Challenge Description&lt;/span&gt;
+ &lt;a href="#challenge-description" class="anchor text-muted"&gt;&lt;i class="fas fa-hashtag"&gt;&lt;/i&gt;&lt;/a&gt;
+ 
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;We dont take any responsibility in any damage that our product may cause to the user's health&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="introduction" id=introduction&gt;
+ 
+ &lt;span class="me-2"&gt;Introduction&lt;/span&gt;
+ &lt;a href="#introduction" class="anchor text-muted"&gt;&lt;i class="fas fa-hashtag"&gt;&lt;/i&gt;&lt;/a&gt;
+ 
+&lt;/h2&gt;&lt;p&gt;&amp;ldquo;Zazastore&amp;rdquo; was a web challenge in PascalCTF 2026. While being a rather easy challenge, it did
+showcase a couple of pitfalls in regards to backend design choices and how language quirks can
+cause unforseen vulnerabilities if not properly tested.&lt;/p&gt;
+&lt;p&gt;A &lt;a href="https://github.com/PascalCTF/PascalCTF-2026/tree/main/web02"&gt;handout&lt;/a&gt; containing the backend
+source code was provided, but I prefer to have a look at the application in a black box setting
+to see what it&amp;rsquo;s meant to do, before I review the code to see how it is accomplished.&lt;/p&gt;</description></item></channel></rss>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>HeroCTF on L1NC CTF</title><link>https://l1ncctf.github.io/tags/heroctf/</link><description>Recent content in HeroCTF on L1NC CTF</description><generator>Hugo</generator><language>en</language><lastBuildDate>Fri, 05 Dec 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://l1ncctf.github.io/tags/heroctf/index.xml" rel="self" type="application/rss+xml"/><item><title>HeroCTF 2025 - Revoked &amp; Revoked Revenge</title><link>https://l1ncctf.github.io/post/heroctf-web-revoked/</link><pubDate>Fri, 05 Dec 2025 00:00:00 +0000</pubDate><guid>https://l1ncctf.github.io/post/heroctf-web-revoked/</guid><description>&lt;h2 id="challenge-descriptions" id=challenge-descriptions&gt;
+ 
+ &lt;span class="me-2"&gt;Challenge Descriptions&lt;/span&gt;
+ &lt;a href="#challenge-descriptions" class="anchor text-muted"&gt;&lt;i class="fas fa-hashtag"&gt;&lt;/i&gt;&lt;/a&gt;
+ 
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Revoked:&lt;/strong&gt;
+&lt;code&gt;Your budget request for the new company personnel index has been declined. Instead, the intern has received a very small bonus in exchange for a homemade solution. Show them their stinginess could cost them.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Revoked Revenge:&lt;/strong&gt;
+&lt;code&gt;The chall maker forgot to remove a debug account... Here is the revenge challenge without this backdoor!&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Although &lt;a href="https://github.com/HeroCTF/HeroCTF_v7/blob/master/Web/revoked/challenge/app/main.py"&gt;source code&lt;/a&gt; for a Flask app was provided, I prefer starting with black‑box testing to understand how the application behaves externally before reviewing internals.
+After solving the challenge through SQL injection, I went back to the source to analyze exactly why the exploit worked.&lt;/p&gt;</description></item></channel></rss>

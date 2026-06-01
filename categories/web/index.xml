@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Web on L1NC CTF</title><link>https://l1ncctf.github.io/categories/web/</link><description>Recent content in Web on L1NC CTF</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 01 Jun 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://l1ncctf.github.io/categories/web/index.xml" rel="self" type="application/rss+xml"/><item><title>PascalCTF 2026 - Zazastore</title><link>https://l1ncctf.github.io/post/pascalctf-web-zazastore/</link><pubDate>Mon, 01 Jun 2026 00:00:00 +0000</pubDate><guid>https://l1ncctf.github.io/post/pascalctf-web-zazastore/</guid><description>&lt;h2 id="challenge-description" id=challenge-description&gt;
+ 
+ &lt;span class="me-2"&gt;Challenge Description&lt;/span&gt;
+ &lt;a href="#challenge-description" class="anchor text-muted"&gt;&lt;i class="fas fa-hashtag"&gt;&lt;/i&gt;&lt;/a&gt;
+ 
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;We dont take any responsibility in any damage that our product may cause to the user's health&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id="introduction" id=introduction&gt;
+ 
+ &lt;span class="me-2"&gt;Introduction&lt;/span&gt;
+ &lt;a href="#introduction" class="anchor text-muted"&gt;&lt;i class="fas fa-hashtag"&gt;&lt;/i&gt;&lt;/a&gt;
+ 
+&lt;/h2&gt;&lt;p&gt;&amp;ldquo;Zazastore&amp;rdquo; was a web challenge in PascalCTF 2026. While being a rather easy challenge, it did
+showcase a couple of pitfalls in regards to backend design choices and how language quirks can
+cause unforseen vulnerabilities if not properly tested.&lt;/p&gt;
+&lt;p&gt;A &lt;a href="https://github.com/PascalCTF/PascalCTF-2026/tree/main/web02"&gt;handout&lt;/a&gt; containing the backend
+source code was provided, but I prefer to have a look at the application in a black box setting
+to see what it&amp;rsquo;s meant to do, before I review the code to see how it is accomplished.&lt;/p&gt;</description></item><item><title>HeroCTF 2025 - Revoked &amp; Revoked Revenge</title><link>https://l1ncctf.github.io/post/heroctf-web-revoked/</link><pubDate>Fri, 05 Dec 2025 00:00:00 +0000</pubDate><guid>https://l1ncctf.github.io/post/heroctf-web-revoked/</guid><description>&lt;h2 id="challenge-descriptions" id=challenge-descriptions&gt;
+ 
+ &lt;span class="me-2"&gt;Challenge Descriptions&lt;/span&gt;
+ &lt;a href="#challenge-descriptions" class="anchor text-muted"&gt;&lt;i class="fas fa-hashtag"&gt;&lt;/i&gt;&lt;/a&gt;
+ 
+&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;Revoked:&lt;/strong&gt;
+&lt;code&gt;Your budget request for the new company personnel index has been declined. Instead, the intern has received a very small bonus in exchange for a homemade solution. Show them their stinginess could cost them.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Revoked Revenge:&lt;/strong&gt;
+&lt;code&gt;The chall maker forgot to remove a debug account... Here is the revenge challenge without this backdoor!&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Although &lt;a href="https://github.com/HeroCTF/HeroCTF_v7/blob/master/Web/revoked/challenge/app/main.py"&gt;source code&lt;/a&gt; for a Flask app was provided, I prefer starting with black‑box testing to understand how the application behaves externally before reviewing internals.
+After solving the challenge through SQL injection, I went back to the source to analyze exactly why the exploit worked.&lt;/p&gt;</description></item><item><title>HSCTF 9 - Gallery</title><link>https://l1ncctf.github.io/post/hsctf9-web-gallery/</link><pubDate>Tue, 10 May 2022 00:00:00 +0000</pubDate><guid>https://l1ncctf.github.io/post/hsctf9-web-gallery/</guid><description>&lt;p&gt;&lt;em&gt;A simple web challenge involving directory traversal.&lt;/em&gt;&lt;/p&gt;</description></item></channel></rss>

