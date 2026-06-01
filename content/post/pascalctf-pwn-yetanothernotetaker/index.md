@@ -425,12 +425,12 @@ io.interactive()
 
 # References
 
-[1] https://cs155.stanford.edu/papers/formatstring-1.2.pdf
-[2] https://www.redhat.com/en/blog/hardening-elf-binaries-using-relocation-read-only-relro
-[3] https://www.sans.org/blog/stack-canaries-gingerly-sidestepping-the-cage
-[4] https://en.wikipedia.org/wiki/W%5EX
-[5] https://en.wikipedia.org/wiki/Address_space_layout_randomization
-[6] https://en.wikipedia.org/wiki/Return-to-libc_attack
-[7] https://en.wikipedia.org/wiki/Return-oriented_programming
-[8] https://www.ired.team/miscellaneous-reversing-forensics/windows-kernel-internals/linux-x64-calling-convention-stack-frame
-[9] https://docs.pwntools.com/en/dev/fmtstr.html
+[1] https://cs155.stanford.edu/papers/formatstring-1.2.pdf  
+[2] https://www.redhat.com/en/blog/hardening-elf-binaries-using-relocation-read-only-relro  
+[3] https://www.sans.org/blog/stack-canaries-gingerly-sidestepping-the-cage  
+[4] https://en.wikipedia.org/wiki/W%5EX  
+[5] https://en.wikipedia.org/wiki/Address_space_layout_randomization  
+[6] https://en.wikipedia.org/wiki/Return-to-libc_attack  
+[7] https://en.wikipedia.org/wiki/Return-oriented_programming  
+[8] https://www.ired.team/miscellaneous-reversing-forensics/windows-kernel-internals/linux-x64-calling-convention-stack-frame  
+[9] https://docs.pwntools.com/en/dev/fmtstr.html  
